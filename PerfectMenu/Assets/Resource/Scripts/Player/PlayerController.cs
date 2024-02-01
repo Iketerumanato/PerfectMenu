@@ -3,27 +3,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public MainMenu _mainmenu = new();
+    MainMenu _mainmenu = new();
 
-    //public void OnOpenMainMenu(InputAction.CallbackContext context)
-    //{
-    //    if (!context.started) return;
-    //    _mainmenu.OpenMenu();
-    //}
-
-    private void Update()
+    public void OnOpenMainMenu(InputAction.CallbackContext context)
     {
-        var current = Keyboard.current;
-        var mKey = current.mKey;
-
-        if (current == null)
-        {
-            return;
-        }
-
-        if (mKey.wasPressedThisFrame)
-        {
-            _mainmenu.OpenMenu();
-        }
+        if (!context.started) return;
+        _mainmenu.OpenMenu();
     }
+
+    //private void Update()
+    //{
+    //    var current = Keyboard.current;
+    //    var mKey = current.mKey;
+
+    //    if (current == null) return;
+
+    //    if (mKey.wasPressedThisFrame)
+    //    {
+    //        _mainmenu.OpenMenu();
+    //    }
+    //}
 }
