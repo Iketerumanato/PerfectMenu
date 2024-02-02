@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 //public interface IOpenMenu
@@ -9,10 +8,11 @@ using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour//, IOpenMenu
 {
-    readonly float StopGameTime = 0f;
-    readonly float ResumeGameTime = 1f;
     CanvasGroup MenuCanvasGroup;
     [SerializeField] PlayerInput _playerinput;
+    readonly float MaxAlpha = 1f;
+    readonly float MinAlpha = 0f;
+    readonly Poser _poser = new();
 
     private void Start()
     {
@@ -22,26 +22,21 @@ public class MainMenu : MonoBehaviour//, IOpenMenu
 
     public void OpenMenu()
     {
-        this.gameObject.GetComponent<MainMenu>().enabled = true;
+        this.GetComponent<MainMenu>().enabled = true;
+        _poser.PoseTime();
         _playerinput.actions.FindActionMap("Player").Disable();
         _playerinput.actions.FindActionMap("UI").Enable();
-        MenuCanvasGroup.alpha = 1f;
-        Time.timeScale = StopGameTime;
+        MenuCanvasGroup.alpha = MaxAlpha;
     }
 
     //ResumeButton‚É‚à“K‰ž‚³‚¹‚é
     public void CloseMenu()
     {
-        this.gameObject.GetComponent<MainMenu>().enabled = false;
+        this.GetComponent<MainMenu>().enabled = false;
+        _poser.ResumeTime();
         _playerinput.actions.FindActionMap("UI").Disable();
         _playerinput.actions.FindActionMap("Player").Enable();
-        MenuCanvasGroup.alpha = 0f;
-        Time.timeScale = ResumeGameTime;
-    }
-
-    public void ToStartResumeButton()
-    {
-        Debug.Log("Resume InGame");
+        MenuCanvasGroup.alpha = MinAlpha;
     }
 
     public void ToStartGotoTitleButton()

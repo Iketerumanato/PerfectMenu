@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Poser : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [System.NonSerialized]
+    public bool IsPose = false;
+    readonly float StopGameTimeScale = 0f;
+    readonly float ResumeGameTimeScale = 1f;
+
+    public void PoseTime()
+    {      
+        Time.timeScale = StopGameTimeScale;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResumeTime()
     {
-        
+        Time.timeScale = ResumeGameTimeScale;
     }
 }
