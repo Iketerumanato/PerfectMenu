@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour//, IOpenMenu
     private void Start()
     {
         MenuCanvasGroup = gameObject.GetComponent<CanvasGroup>();
-        CloseMenu();
+        FadeInMenu();
     }
 
     public void OpenMenu()
@@ -37,15 +37,25 @@ public class MainMenu : MonoBehaviour//, IOpenMenu
         _playerinput.actions.FindActionMap("UI").Disable();
         _playerinput.actions.FindActionMap("Player").Enable();
         MenuCanvasGroup.alpha = MinAlpha;
+
+        SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
+    }
+
+    void FadeInMenu()
+    {
+        this.GetComponent<MainMenu>().enabled = false;
+        MenuCanvasGroup.alpha = MinAlpha;
     }
 
     public void ToStartGotoTitleButton()
     {
         Debug.Log("Go to Title");
+        SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
     }
 
     public void ToStartOptionButton()
     {
         Debug.Log("Open Option");
+        SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
     }
 }
