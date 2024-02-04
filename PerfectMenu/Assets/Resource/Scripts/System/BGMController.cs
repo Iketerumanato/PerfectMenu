@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class BGMController : MonoBehaviour
 {
     [SerializeField] AudioSource bgmAudioSource;
 
     [SerializeField] List<BGMSoundData> bgmSoundDatas;
 
-    public float bgmMasterVolume = 1;
+    [SerializeField] Slider bgmVolumeSlider;
 
     public static BGMController _bgmcontroller { get; private set; }
 
@@ -30,7 +32,8 @@ public class BGMController : MonoBehaviour
     {
         BGMSoundData data = bgmSoundDatas.Find(data => data.bgm == bgm);
         bgmAudioSource.clip = data.audioClip;
-        bgmAudioSource.volume = data.volume * bgmMasterVolume;
+        bgmAudioSource.volume = data.volume;
+        bgmVolumeSlider.value = bgmAudioSource.volume;
         bgmAudioSource.Play();
     }
 }
@@ -42,11 +45,10 @@ public class BGMSoundData
     {
         Title,
         InGame,
-        Hoge, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
     }
 
     public BGM bgm;
     public AudioClip audioClip;
-    [Range(0, 1)]
-    public float volume = 1;
+    [Range(0f, 1f)]
+    public float volume = 1f;
 }

@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour//, IOpenMenu
     readonly float MaxAlpha = 1f;
     readonly float MinAlpha = 0f;
     readonly Poser _poser = new();
+    readonly OptionMenu _optionmenu = new();
 
     private void Start()
     {
@@ -55,7 +56,7 @@ public class MainMenu : MonoBehaviour//, IOpenMenu
 
     public void ToStartOptionButton()
     {
-        Debug.Log("Open Option");
+        _optionmenu.OpenOption();
         SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
     }
 }
