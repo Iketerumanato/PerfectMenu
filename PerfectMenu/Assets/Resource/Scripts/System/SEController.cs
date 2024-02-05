@@ -1,13 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SEController : MonoBehaviour
 {
     [SerializeField] AudioSource seAudioSource;
     [SerializeField] List<SESoundData> seSoundDatas;
-
-    public float seMasterVolume = 1;
+    [SerializeField] Slider seVolumeSlider;
 
     public static SEController _secontroller { get; private set; }
 
@@ -27,9 +26,12 @@ public class SEController : MonoBehaviour
     public void PlaySE(SESoundData.SE se)
     {
         SESoundData data = seSoundDatas.Find(data => data.se == se);
-        seAudioSource.volume = data.volume * seMasterVolume;
+        seAudioSource.volume = data.volume;
+        foreach (SESoundData seData in seSoundDatas) seVolumeSlider.value = seAudioSource.volume;
         seAudioSource.PlayOneShot(data.audioClip);
     }
+
+
 
     [System.Serializable]
     public class SESoundData

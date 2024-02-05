@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class Poser : MonoBehaviour
+public class Poser
 {
-    [System.NonSerialized]
     public bool IsPose = false;
     readonly float StopGameTimeScale = 0f;
     readonly float ResumeGameTimeScale = 1f;
+
+    public static Poser _poser;
 
     public void PoseTime()
     {      

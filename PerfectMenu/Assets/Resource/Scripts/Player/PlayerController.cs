@@ -10,4 +10,10 @@ public class PlayerController : MonoBehaviour
         if (!context.started) return;
         _mainmenu.OpenMenu();
     }
+
+    public void OnCloseMainMenu(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        _mainmenu.CloseMenu();
+    }
 }

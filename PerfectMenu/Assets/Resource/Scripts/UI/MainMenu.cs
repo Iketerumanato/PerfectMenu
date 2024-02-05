@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 //public interface IOpenMenu
 //{
@@ -8,55 +9,49 @@ using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour//, IOpenMenu
 {
-    CanvasGroup MenuCanvasGroup;
+    [SerializeField] CanvasGroup MainCanvasGroup;
+    [SerializeField] CanvasGroup MenuCanvasGroup;
     [SerializeField] PlayerInput _playerinput;
+    [SerializeField] Button FirstSelectButton;
     readonly float MaxAlpha = 1f;
     readonly float MinAlpha = 0f;
-    readonly Poser _poser = new();
-    readonly OptionMenu _optionmenu = new();
 
     private void Start()
     {
-        MenuCanvasGroup = gameObject.GetComponent<CanvasGroup>();
+        MainCanvasGroup.alpha = MinAlpha;
         FadeInMenu();
     }
 
     public void OpenMenu()
     {
-        this.GetComponent<MainMenu>().enabled = true;
-        _poser.PoseTime();
+        FadeOutMenu();
+        //Poser._poser.PoseTime();
         _playerinput.actions.FindActionMap("Player").Disable();
         _playerinput.actions.FindActionMap("UI").Enable();
-        MenuCanvasGroup.alpha = MaxAlpha;
+        MainCanvasGroup.alpha = MaxAlpha;
+        FirstSelectButton.Select();
     }
 
     //ResumeButton‚É‚à“K‰ž‚³‚¹‚é
     public void CloseMenu()
     {
-        this.GetComponent<MainMenu>().enabled = false;
-        _poser.ResumeTime();
+        FadeInMenu();
+        //Poser._poser.ResumeTime();
         _playerinput.actions.FindActionMap("UI").Disable();
         _playerinput.actions.FindActionMap("Player").Enable();
-        MenuCanvasGroup.alpha = MinAlpha;
-
-        SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
+        MainCanvasGroup.alpha = MinAlpha;
     }
 
-    void FadeInMenu()
+    public void FadeOutMenu()
+    {
+        this.GetComponent<MainMenu>().enabled = true;
+        MenuCanvasGroup.alpha = MaxAlpha;
+        FirstSelectButton.Select();
+    }
+
+    public void FadeInMenu()
     {
         this.GetComponent<MainMenu>().enabled = false;
         MenuCanvasGroup.alpha = MinAlpha;
-    }
-
-    public void ToStartGotoTitleButton()
-    {
-        Debug.Log("Go to Title");
-        SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
-    }
-
-    public void ToStartOptionButton()
-    {
-        _optionmenu.OpenOption();
-        SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
     }
 }

@@ -3,37 +3,39 @@ using UnityEngine.UI;
 
 public class OptionMenu : MonoBehaviour
 {
-    CanvasGroup OptionCanvasGroup;
+    [SerializeField] CanvasGroup OpitonCanvasGroup;
+    [SerializeField] Slider FirstSelectSlider;
+    [SerializeField] MainMenu _mainmenu;
     readonly float MaxAlpha = 1f;
     readonly float MinAlpha = 0f;
-    readonly MainMenu _mainmenu = new();
-    [SerializeField] Slider FirstSelectSlider;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        OptionCanvasGroup = gameObject.GetComponent<CanvasGroup>();
-        FirstSelectSlider.Select();
         FadeInOption();
     }
 
     public void OpenOption()
     {
-        _mainmenu.enabled = false;
-        this.GetComponent<OptionMenu>().enabled = true;
-        OptionCanvasGroup.alpha = MaxAlpha;
+        FadeOutOption();
+        _mainmenu.FadeInMenu();
+        FirstSelectSlider.Select();
     }
 
     public void CloseOption()
     {
-        _mainmenu.enabled = true;
-        this.GetComponent<OptionMenu>().enabled = false;
-        OptionCanvasGroup.alpha = MinAlpha;
+        FadeInOption();
+        _mainmenu.FadeOutMenu();
+    }
+
+    void FadeOutOption()
+    {
+        this.GetComponent<OptionMenu>().enabled = true;
+        OpitonCanvasGroup.alpha = MaxAlpha;
     }
 
     void FadeInOption()
     {
         this.GetComponent<OptionMenu>().enabled = false;
-        OptionCanvasGroup.alpha = MinAlpha;
+        OpitonCanvasGroup.alpha = MinAlpha;
     }
 }
