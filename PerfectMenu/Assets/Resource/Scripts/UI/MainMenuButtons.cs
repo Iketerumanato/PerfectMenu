@@ -21,6 +21,6 @@ public class MainMenuButtons : MonoBehaviour
     public void ToStartGotoTitleButton()
     {
         Debug.Log("Go to Title");
-        SEController._secontroller.PlaySE(SEController.SESoundData.SE.Click);
+        SEController._secontroller.PlaySE(SEController.SESoundData.SE.secondClick);
     }
 }

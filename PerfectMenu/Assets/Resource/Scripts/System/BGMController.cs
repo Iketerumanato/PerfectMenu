@@ -24,8 +24,6 @@ public class BGMController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        PlayBGM(BGMSoundData.BGM.InGame);
     }
 
     public void PlayBGM(BGMSoundData.BGM bgm)
